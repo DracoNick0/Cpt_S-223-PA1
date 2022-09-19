@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include <fstream>
 #include <iostream>
 #include <stdio.h>
 #include <string.h>

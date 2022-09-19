@@ -165,15 +165,15 @@ int getScores()
     return score;
 }
 
-void add_command(Node* pHead)
+Node* add_command(Node* pHead)
 {
     Node* temp = pHead;
-    char command[10];
+    char command[10], desc[190];
     int temp2 = 0;
     cout << "Please type the command you would like to add: ";
     while (1)
     {
-        if (temp)
+        if (temp2)
         {
             do {
                 cout << "That command already exists, try again?\n 1. Yes\n 2. No\n";
@@ -182,6 +182,7 @@ void add_command(Node* pHead)
         }
         if (temp2 == 2)
         {
+            return pHead;
             break;
         }
         temp2 = 0;
@@ -206,10 +207,76 @@ void add_command(Node* pHead)
         }
         if (temp2 != 1)
         {
-            cout << "Type the description of the command: ";
-            break;
+            cout << "Type the description of the command(190 characters): ";
+            cin >> desc;
+            Node* newHead = new Node(command, desc);
+            newHead->nextPtr = pHead;
+            return newHead;
         }
     }
+}
+
+Node* remove_command(Node* pHead)
+{
+    Node* pTemp = pHead;
+    int temp = -1;
+    char command[10];
+    while (temp != 1)
+    {
+        if (temp == -1)
+        {
+            cout << "Enter the command you would like to remove: ";
+            cin >> command;
+            temp = 0;
+        }
+        else
+        {
+            cout << "This command does not exist, would you rather\n 1. Try again\n 2. Exit\n";
+            cin >> temp;
+            if (temp == 2)
+            {
+                return pHead;
+            }
+            cout << "Enter the command you would like to remove: ";
+            cin >> command;
+        }
+        if (pTemp->command == command)
+        {
+            pTemp = pTemp->nextPtr;
+            delete pHead;
+            pHead = pTemp;
+            return pHead;
+        }
+        while (pTemp->nextPtr != nullptr)
+        {
+            if (!strcmp(pTemp->nextPtr->command, command))
+            {
+                temp = 1;
+                break;
+            }
+            pTemp = pTemp->nextPtr;
+        }
+    }
+    Node* pTemp2 = pTemp->nextPtr;
+    pTemp->nextPtr = pTemp->nextPtr->nextPtr;
+    delete pTemp2;
+}
+
+void store_commands(Node* pHead)
+{
+    std::ofstream outfile;
+    int temp = 0;
+    outfile.open("commands.csv");
+    if (pHead != nullptr)
+    {
+        do
+        {
+            outfile << pHead->command << "," << pHead->desc << endl;
+            pHead = pHead->nextPtr;
+        } while (pHead->nextPtr != nullptr);
+        outfile << pHead->command << "," << pHead->desc;
+    }
+    outfile.close();
 }
 
 int main_menu()
@@ -258,12 +325,13 @@ int main_menu()
             // load game
             break;
         case 4:
-            add_command(pHead);
+            pHead = add_command(pHead);
             break;
         case 5:
-            // remove command
+            remove_command(pHead);
             break;
         case 6: // exit
+            store_commands(pHead);
             return 0;
             break;
         }

@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,6 +27,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="profile.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="safe.csv">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

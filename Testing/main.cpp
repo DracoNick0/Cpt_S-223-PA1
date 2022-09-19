@@ -10,7 +10,7 @@
 
 /*
 * ADVANTAGES / DISADVANTAGES ARRAY
-* One advantage for using an array for the profiles 
+* One advantage for using an array for the profiles, it's very easily traversable
 * One disadvantage for the use of arrayes for the profiles is that we had to place the profile in the front of the array. This causes inputting a new profile to take
 * n(the amount of previously stored profiles) operations since we would have to shift all other profiles down.
 */
