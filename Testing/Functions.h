@@ -165,6 +165,53 @@ int getScores()
     return score;
 }
 
+void add_command(Node* pHead)
+{
+    Node* temp = pHead;
+    char command[10];
+    int temp2 = 0;
+    cout << "Please type the command you would like to add: ";
+    while (1)
+    {
+        if (temp)
+        {
+            do {
+                cout << "That command already exists, try again?\n 1. Yes\n 2. No\n";
+                cin >> temp2;
+            } while (temp2 != 1 || temp2 != 2);
+        }
+        if (temp2 == 2)
+        {
+            break;
+        }
+        temp2 = 0;
+        cin >> command;
+        while (1)
+        {
+            if (temp != nullptr)
+            {
+                if (command == temp->command)
+                {
+                    temp2 = 1;
+                }
+            }
+            if (temp->nextPtr != nullptr)
+            {
+                temp = temp->nextPtr;
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (temp2 != 1)
+        {
+            cout << "Type the description of the command: ";
+            break;
+        }
+    }
+}
+
 int main_menu()
 {
     int choice;
@@ -211,7 +258,7 @@ int main_menu()
             // load game
             break;
         case 4:
-            // add command
+            add_command(pHead);
             break;
         case 5:
             // remove command
